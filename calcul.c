@@ -25,7 +25,10 @@ int main(){
                 break;
             case '/': i=divise(a,b);
                 break;
-            default : printf("svp donne une operation valid! (exp:'+' '-' '*' '/')");
+            default : 
+                printf("svp donne une operation valid! (exp:'+' '-' '*' '/')");
+                scanf("%s", &c);
+                goto again;
     }
     printf("le resultat est: %.2f \n",i);
     return 0;
