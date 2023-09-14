@@ -43,5 +43,9 @@ float subs(float a,float b){
         return (a-b);
 }
 float divise(float a,float b){
+        while (b==0){
+            printf("impossible de diviser par 0!!\n donner une autre valeur:");
+            scanf("%f", &b);
+        }
         return (a/b);
 }
