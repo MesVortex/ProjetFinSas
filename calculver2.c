@@ -2,12 +2,13 @@
 #include <stdlib.h>
 
 float divise(float a,float b);
+float power(float a,float b);
 
 int main(){
     float a,b,i;
     char c;
     do{
-        printf("donner l\'operation (press x to exit):");
+        printf("donner l\'operation (exp:'+' '-' '*' '/' '^') ou (press x to exit):");
         scanf("%s", &c);
         if(c == 'x')
             exit(0);
@@ -25,8 +26,11 @@ int main(){
                     break;
                 case '/': i = divise(a,b);
                     break;
-                default : 
-                    printf("svp donne une operation valid! (exp:'+' '-' '*' '/')");
+                case '^': i = power(a,b);
+                    break;
+                case 'x': exit(0);
+                default :
+                    printf("svp donne une operation valid! (exp:'+' '-' '*' '/' '^') ou (press x o exit):");
                     scanf("%s", &c);
                     goto again;
             }
@@ -37,9 +41,16 @@ int main(){
 
 
 float divise(float a,float b){
-        while (b==0){
-            printf("impossible de diviser par 0!!\n donner une autre valeur:");
-            scanf("%f", &b);
-        }
-        return (a/b);
+    while (b==0){
+        printf("impossible de diviser par 0!!\n donner une autre valeur:");
+        scanf("%f", &b);
+    }
+    return (a/b);
+}
+float power(float a,float b){
+    int p=1;
+    for (int i = 0; i < b; i++){
+        p = p * a;
+    }
+    return p;
 }

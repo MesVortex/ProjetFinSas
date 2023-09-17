@@ -22,7 +22,7 @@ int main(){
                 break;
             case '/': i = divise(a,b);
                 break;
-            default : 
+            default :
                 printf("svp donne une operation valid! (exp:'+' '-' '*' '/')");
                 scanf("%s", &c);
                 goto again;
