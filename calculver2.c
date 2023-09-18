@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-float divise(float a,float b);
-float power(float a,float b);
+double divise(double a,double b);
+double power(double a,double b);
 
 int main(){
-    float a,b,i;
+    double a,b,i;
     char c;
     do{
         printf("donner l\'operation (exp:'+' '-' '*' '/' '^') ou (press x to exit):");
@@ -13,9 +13,9 @@ int main(){
         if(c == 'x')
             exit(0);
         printf("donner le 1er nbr:");
-        scanf("%f", &a);
+        scanf("%lf", &a);
         printf("donner le 2eme nbr:");
-        scanf("%f", &b);
+        scanf("%lf", &b);
         again:
             switch(c){
                 case '+': i = (a+b);
@@ -34,21 +34,21 @@ int main(){
                     scanf("%s", &c);
                     goto again;
             }
-        printf("le resultat est: %.1f \n",i);
+        printf("le resultat est: %.1lf \n",i);
     }while(c != 'x');
     return 0;
 }
 
 
-float divise(float a,float b){
+double divise(double a,double b){
     while (b==0){
         printf("impossible de diviser par 0!!\n donner une autre valeur:");
-        scanf("%f", &b);
+        scanf("%lf", &b);
     }
     return (a/b);
 }
-float power(float a,float b){
-    int p=1;
+double power(double a,double b){
+    double p=1;
     for (int i = 0; i < b; i++){
         p = p * a;
     }
