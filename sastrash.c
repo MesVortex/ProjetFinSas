@@ -16,7 +16,7 @@ typedef struct{
     deadline de_li;
 }ToDo;
 
-int b, G_ID = 1001;
+int indice, G_ID = 1001;
 ToDo task[200];
 
 time_t temps(int a);
@@ -30,38 +30,47 @@ void set_start_date(struct tm date[]);
 void days_3();
 void supp(int a);
 int search(int id);
-void modifier(int b);
+void modify(int i);
 
 int main(){
-    int choia,id;
+    int choix,id,ident;
     again:
-    printf("choia");
-    scanf("%d", &choia);
-    switch (choia){
-    case 1: add();
-        goto again;
-        break;
-    case 2: add_more();
-        break;
-    case 3: for (int i = 0; i < b; i++){show(i);}
-        break;
-    case 4: tri_alpha(); // void modify
-        goto again;
-        break;
-    case 5: tri_de_li();
-        goto again;
-        break;
-    case 6: days_3();
-        break;
-    case 7: printf("donner le ID de la tache a supp:");
-        scanf("%d",&id);
-        printf("\n%d\n",b);
-        supp(search(id));
-        printf("\n%d\n",b);
-        goto again;
-        break;
-    default:
-        break;
+    printf("choix");
+    scanf("%d", &choix);
+    switch (choix){
+        case 1: 
+            add();
+            goto again;
+            break;
+        case 2: 
+            add_more();
+            break;
+        case 3: 
+            for (int i = 0; i < indice; i++){show(i);}
+            break;
+        case 4: 
+            tri_alpha(); 
+            goto again;
+            break;
+        case 5: 
+            tri_de_li();
+            goto again;
+            break;
+        case 6: days_3();
+            break;
+        case 7: 
+            printf("donner le ID de la tache a supp:");
+            scanf("%d",&id);
+            supp(search(id));
+            goto again;
+            break;
+        case 8:
+            printf("donner le ID de la tache a modifier:");
+            scanf("%d",&ident);
+            modify(search(ident));
+            goto again;
+        default:
+            break;
     }
     return 0;
 }
@@ -77,25 +86,25 @@ void show(int a){
 void add(){
 
     printf("Entrez le nom de la tache:");
-    scanf("%s", task[b].titre);
+    scanf("%s", task[indice].titre);
 
     printf("donner une decription (optional & 150 charactere maa):");
-    scanf(" %[^\n]", task[b].descri);
+    scanf(" %[^\n]", task[indice].descri);
 
     printf("ajouter une deadline (JJ/MM/AA):");
-    scanf("%d/%d/%d", &task[b].de_li.jour, &task[b].de_li.mois, &task[b].de_li.annee);
+    scanf("%d/%d/%d", &task[indice].de_li.jour, &task[indice].de_li.mois, &task[indice].de_li.annee);
     
     printf("entrer le statut de votre tache (todo, doing, done):");
-    scanf("%s", task[b].status);
+    scanf("%s", task[indice].status);
 
-    task[b].ID = G_ID;
+    task[indice].ID = G_ID;
     printf("tache ajouté avec succès!\n (ID de ce tache: %d)\n", G_ID);
     G_ID++;
-    b++;
+    indice++;
 }
 
 void add_more(){
-    int a,i,b = b;
+    int a,i,b = indice;
     printf("combien de tache voulez vous ajoutez? :");
     scanf("%d", &a);
     for ( i = b; i < b + a ; i++){
@@ -135,8 +144,8 @@ void swap( int i, int j){
 }
 
 void tri_alpha(){
-    for(int i = 0 ;i < b ; i++){
-        for(int j = i+1 ;j < b ; j++){
+    for(int i = 0 ;i < indice ; i++){
+        for(int j = i+1 ;j < indice ; j++){
             if(strcmp(task[i].titre, task[j].titre)>0){
                 swap(i,j);
             }
@@ -145,8 +154,8 @@ void tri_alpha(){
 }
 
 void tri_de_li(){
-    for(int i = 0 ;i < b ; i++){
-        for(int j = i+1 ;j < b ; j++){
+    for(int i = 0 ;i < indice ; i++){
+        for(int j = i+1 ;j < indice ; j++){
             if(temps(i) > temps(j)){
                 swap(i,j);
             }
@@ -156,7 +165,7 @@ void tri_de_li(){
 
 void days_3(){
     const int three_D = 86400 * 3;
-    for (int i = 0; i < b; i++){
+    for (int i = 0; i < indice; i++){
         if (temps(i) <= three_D){
             show(i);
         }
@@ -191,45 +200,49 @@ void set_start_date(struct tm date[]){
 }
 
 void supp(int a){
-    for (int i = a; i < b; i++){
+    for (int i = a; i < indice; i++){
         swap(i,i+1);
     }
-    b--;
+    indice--;
 }
 
 int search(int id){
-        for(int i = 0 ; i < b ; i++){
+        for(int i = 0 ; i < indice ; i++){
             if (task[i].ID == id){
                 return(i);
             }
         }
 }
 
-void modifier(int b){
+void modify(int i){
     char descri_modi[150],status_modi[10];
     int a;
 
-    printf("1.Modifier la description\n2.Modifier le statut\n3.Modifier le deadline\n");
-    printf("Taper l'option : ");
+    printf("1.Modifier la description\n2.Modifier le statut\n3.Modifier le deadline\n4.Retournez au menu principale");
+    printf("Taper le numero de votre choix :");
     scanf("%d", &a);
 
+    error:
     switch(a){
         case 1: 
             printf("Entrer la nouvelle description : ");
             scanf("%[^\n]", descri_modi);
-            strcpy(task[b].descri, descri_modi);
+            strcpy(task[i].descri, descri_modi);
             break;
         case 2: 
-            printf("Entrer le nouvelle statut : ");
+            printf("Entrer le nouveau statut : ");
             scanf("%s", status_modi);
-            strcpy(task[b].status, status_modi);
+            strcpy(task[i].status, status_modi);
             break;
         case 3: 
-            printf("Entrer le nouvelle deadline (jj/mm/aaaa) :");
-            scanf("%d/%d/%d",  &task[b].de_li.jour, &task[b].de_li.mois, &task[b].de_li.annee);
+            printf("Entrer le nouveau deadline (JJ/MM/AAAA) :");
+            scanf("%d/%d/%d",  &task[i].de_li.jour, &task[i].de_li.mois, &task[i].de_li.annee);
+            break;
+        case 4:
             break;
         default:
             printf("Invalid option !");
+            goto error;
             break;
     }
 }
