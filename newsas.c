@@ -45,7 +45,7 @@ int main(){
     while(1){
         out:
         menu();
-        printf("Commencez à enregistrer et à manipuler vos tâches librement ^_^\n\nchoisissez une option:");
+        printf("choisissez une option:");
         scanf("%d", &choix);
         switch (choix){
             case 1:
@@ -96,6 +96,7 @@ int main(){
             case 6:
                 err_rech:
                 printf("1.Rechercher une tâche par son Identifiant\n2.Rechercher une tâche par son Titre\n3.Retournez au menu principale.");
+                printf("choisissez une option:");
                 scanf("%d", &choix);
                 switch (choix){
                     case 1:
@@ -121,6 +122,7 @@ int main(){
                 err_stat:
                 printf("1.Afficher le nombre total des tâches.\n2.Afficher le nombre de tâches complètes et incomplètes.\n");
                 printf("3.Afficher le nombre de jours restants jusqu'au délai de chaque tâche\n4.Retournez au menu principale.\n");
+                printf("choisissez une option:");
                 scanf("%d", &choix);
                 switch (choix){
                     case 1:
@@ -159,14 +161,16 @@ int menu_tri(){
 
 void menu(){
         printf("\n***********************Gestion de Tâches / ToDo list***********************\n\n");
-        printf("1.Ajouter une nouvelle tâche\n");
-        printf("2.Ajouter plusieurs nouvelles tâches\n");
-        printf("3.Afficher la liste de toutes les tâches\n");
-        printf("4.Modifier une tâche\n");
-        printf("5.Supprimer une tâche\n");
-        printf("6.Rechercher une tâche\n");
-        printf("7.Statistiques\n");
-        printf("0.exit\n\n");
+        printf("1.Ajouter une nouvelle tâche.\n");
+        printf("2.Ajouter plusieurs nouvelles tâches.\n");
+        printf("3.Afficher la liste de toutes les tâches.\n");
+        printf("4.Modifier une tâche.\n");
+        printf("5.Supprimer une tâche.\n");
+        printf("6.Rechercher une tâche.\n");
+        printf("7.Statistiques.\n");
+        printf("0.exit.\n\n");
+        printf("Commencez à enregistrer et à manipuler vos tâches librement ^_^\n\n");
+        printf("\n***************************************************************************\n\n");
 }
 
 void show(int a){
@@ -319,7 +323,7 @@ void modify(int i){
     char descri_modi[150],status_modi[10];
     int a;
 
-    printf("1.Modifier la description\n2.Modifier le statut\n3.Modifier le deadline\n4.Retournez au menu principale");
+    printf("1.Modifier la description\n2.Modifier le statut\n3.Modifier le deadline\n4.Retournez au menu principale\n");
     printf("Taper le numero de votre choix :");
     scanf("%d", &a);
 
@@ -342,7 +346,7 @@ void modify(int i){
         case 4:
             break;
         default:
-            printf("choisisser une option parmi ces 4 svp!!");
+            printf("choisisser une option parmi ces 4 svp!!\n\n");
             goto error;
     }
 }
@@ -363,14 +367,13 @@ void search_tit(char tit[]){
 void done_undone(){
     int cmpt1,cmpt2;
     for (int i = 0; i < indice; i++){
-        if (strcasecmp(task[i].status, "done") == 0){
+        if (strcasecmp(task[i].status,"done") == 0){
             cmpt1++;
-        }else if ((strcasecmp(task[i].status, "todo") == 0) || (strcasecmp(task[i].status, "doing"))){
+        }else
             cmpt2++;
-        }
     }
-    printf("le nombre de tâches complètes est : %d",cmpt1);
-    printf("le nombre de tâches incomplètes est : %d",cmpt2);
+    printf("le nombre de tâches complètes est : %d\n",cmpt1);
+    printf("le nombre de tâches incomplètes est : %d\n\n",cmpt2);
 }
 
 void days_left(){
@@ -378,7 +381,7 @@ void days_left(){
     for (int i = 0; i < indice; i++){
         show(i);
         a = to_days(temps(i));
-        printf("le nombre de jours restants jusqu'au délai de tâcheest :%d jour(s)", a);
+        printf("le nombre de jours restants jusqu'au délai de tâcheest :%d jour(s)\n\n", a);
     }
 }
 
