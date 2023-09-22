@@ -31,7 +31,8 @@ void days_3();
 void supp(int a);
 void modify(int i);
 void menu();
-void done_undone();
+void done();
+void undone();
 void search_tit(char tit[]);
 void days_left();
 int search(int id);
@@ -91,6 +92,7 @@ int main(){
                 var = search(id);
                 if (var >= 0){
                     supp(var);
+                    printf("tach suppimee !\n\n");
                 }
                 break;
             case 6:
@@ -126,10 +128,11 @@ int main(){
                 scanf("%d", &choix);
                 switch (choix){
                     case 1:
-                        printf("le nombre total des tâches est :%d", indice);
+                        printf("\nle nombre total des tâches est :%d\n", indice);
                         goto out;
                     case 2:
-                        done_undone();
+                        done();
+                        undone();
                         goto out;
                     case 3:
                         days_left();
@@ -364,16 +367,24 @@ void search_tit(char tit[]){
     }
 }
 
-void done_undone(){
-    int cmpt1,cmpt2;
+void done(){
+    int cmpt;
     for (int i = 0; i < indice; i++){
         if (strcasecmp(task[i].status,"done") == 0){
-            cmpt1++;
-        }else
-            cmpt2++;
+            cmpt++;
+        }
     }
-    printf("le nombre de tâches complètes est : %d\n",cmpt1);
-    printf("le nombre de tâches incomplètes est : %d\n\n",cmpt2);
+    printf("\nle nombre de tâches complètes est : %d\n",cmpt);
+}
+
+void undone(){
+    int cmpt;
+    for (int i = 0; i < indice; i++){
+        if ((strcasecmp(task[i].status,"doing") == 0) || (strcasecmp(task[i].status,"doing") == 0)){
+            cmpt++;
+        }
+    }
+    printf("\nle nombre de tâches incomplètes est : %d\n",cmpt);
 }
 
 void days_left(){
@@ -381,7 +392,7 @@ void days_left(){
     for (int i = 0; i < indice; i++){
         show(i);
         a = to_days(temps(i));
-        printf("le nombre de jours restants jusqu'au délai de tâcheest :%d jour(s)\n\n", a);
+        printf("le nombre de jours restants jusqu'au délai de ce tâche est :%d jour(s)\n\n", a);
     }
 }
 
