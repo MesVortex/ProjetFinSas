@@ -75,7 +75,7 @@ int main(){
                     case 4:
                         goto out;
                     default:
-                        printf("choisisser une option parmi ces 4 svp!!\n\n");
+                        printf("\nchoisisser une option parmi ces 4 svp!!\n\n");
                         goto err_tri;
                 }
             case 4:
@@ -92,7 +92,7 @@ int main(){
                 var = search(id);
                 if (var >= 0){
                     supp(var);
-                    printf("tach suppimee !\n\n");
+                    printf("tach supprimee !\n\n");
                 }
                 break;
             case 6:
@@ -117,14 +117,14 @@ int main(){
                     case 3:
                         goto out;
                     default:
-                        printf("choisisser une option parmi ces 3 svp!!\n\n");
+                        printf("\nchoisisser une option parmi ces 3 svp!!\n\n");
                         goto err_rech;
                 }
             case 7:
                 err_stat:
                 printf("1.Afficher le nombre total des tâches.\n2.Afficher le nombre de tâches complètes et incomplètes.\n");
                 printf("3.Afficher le nombre de jours restants jusqu'au délai de chaque tâche\n4.Retournez au menu principale.\n");
-                printf("choisissez une option:");
+                printf("choisisser une option:");
                 scanf("%d", &choix);
                 switch (choix){
                     case 1:
@@ -189,7 +189,7 @@ void add(){
     printf("Entrez le nom de la tache:");
     scanf("%s", task[indice].titre);
 
-    printf("donner une decription (optional & 150 charactere maa):");
+    printf("donner une decription (150 charactere max):");
     scanf(" %[^\n]", task[indice].descri);
 
     printf("ajouter une deadline (JJ/MM/AA):");
@@ -218,18 +218,6 @@ void swap( int i, int j){
     temp.ID = task[i].ID;
     task[i].ID = task[j].ID;
     task[j].ID = temp.ID;
-    
-    temp.de_li.jour = task[i].de_li.jour;
-    task[i].de_li.jour = task[j].de_li.jour;
-    task[j].de_li.jour = temp.de_li.jour;
-
-    temp.de_li.mois = task[i].de_li.mois;
-    task[i].de_li.mois = task[j].de_li.mois;
-    task[j].de_li.mois = temp.de_li.mois;
-
-    temp.de_li.annee = task[i].de_li.annee;
-    task[i].de_li.annee = task[j].de_li.annee;
-    task[j].de_li.annee = temp.de_li.annee;
 
     strcpy(temp.titre,task[i].titre);
     strcpy(task[i].titre,task[j].titre);
@@ -242,6 +230,18 @@ void swap( int i, int j){
     strcpy(temp.status,task[i].status);
     strcpy(task[i].status,task[j].status);
     strcpy(task[j].status,temp.status);
+
+    temp.de_li.jour = task[i].de_li.jour;
+    task[i].de_li.jour = task[j].de_li.jour;
+    task[j].de_li.jour = temp.de_li.jour;
+
+    temp.de_li.mois = task[i].de_li.mois;
+    task[i].de_li.mois = task[j].de_li.mois;
+    task[j].de_li.mois = temp.de_li.mois;
+
+    temp.de_li.annee = task[i].de_li.annee;
+    task[i].de_li.annee = task[j].de_li.annee;
+    task[j].de_li.annee = temp.de_li.annee;
 }
 
 void tri_alpha(){
@@ -326,8 +326,8 @@ void modify(int i){
     char descri_modi[150],status_modi[10];
     int a;
 
-    printf("1.Modifier la description\n2.Modifier le statut\n3.Modifier le deadline\n4.Retournez au menu principale\n");
-    printf("Taper le numero de votre choix :");
+    printf("1.Modifier la description\n2.Modifier le statut\n3.Modifier le deadline\n4.Retourner au menu principale\n");
+    printf("choisisser une option:");
     scanf("%d", &a);
 
     error:
@@ -336,20 +336,23 @@ void modify(int i){
             printf("Entrer la nouvelle description : ");
             scanf(" %[^\n]", descri_modi);
             strcpy(task[i].descri, descri_modi);
+            printf("\nModification reussie!\n\n");
             break;
         case 2: 
             printf("Entrer le nouveau statut : ");
             scanf(" %s", status_modi);
             strcpy(task[i].status, status_modi);
+            printf("\nModification reussie!\n\n");
             break;
         case 3: 
             printf("Entrer le nouveau deadline (JJ/MM/AAAA) :");
             scanf("%d/%d/%d",  &task[i].de_li.jour, &task[i].de_li.mois, &task[i].de_li.annee);
+            printf("\nModification reussie!\n\n");
             break;
         case 4:
             break;
         default:
-            printf("choisisser une option parmi ces 4 svp!!\n\n");
+            printf("\nchoisisser une option parmi ces 4 svp!!\n\n");
             goto error;
     }
 }
@@ -363,7 +366,7 @@ void search_tit(char tit[]){
         }
     }
     if (cmpt == 0){
-        printf("aucun resultat trouvee!!\n\n");
+        printf("\naucun resultat trouvee!!\n\n");
     }
 }
 
@@ -380,7 +383,7 @@ void done(){
 void undone(){
     int cmpt;
     for (int i = 0; i < indice; i++){
-        if ((strcasecmp(task[i].status,"doing") == 0) || (strcasecmp(task[i].status,"doing") == 0)){
+        if ((strcasecmp(task[i].status,"doing") == 0)){
             cmpt++;
         }
     }
