@@ -347,7 +347,7 @@ void modify(int i){
 }
 
 void search_tit(char tit[]){
-    int cmpt;
+    int cmpt = 0;
     for(int i = 0 ; i < indice ; i++){
         if(strcasecmp(task[i].titre, tit) == 0){
             show(i);
