@@ -26,15 +26,13 @@ void show(int a);
 void swap( int a, int b);
 void tri_alpha();
 void tri_de_li();
-void set_start_date(struct tm date[]);
 void days_3();
 void supp(int a);
 void modify(int i);
 void menu();
-void done();
-void undone();
 void search_tit(char tit[]);
 void days_left();
+void done();
 int search(int id);
 int menu_tri();
 int to_days(time_t a);
@@ -56,18 +54,18 @@ int main(){
                 add_more();
                 break;
             case 3:
-                printf("voila la liste de toutes les taches \n\n");
+                printf("\n\nvoilà la liste de toutes les tâches:\n");
                 for (int i = 0; i < indice; i++){show(i);}
                 err_tri:
                 var = menu_tri();
                 switch (var){
                     case 1:
                         tri_alpha();
-                        printf("trier avec succes!!\n\n");
+                        printf("\ntrier avec succès!!\n\n");
                         goto out;
                     case 2:
                         tri_de_li();
-                        printf("trier avec succes!!\n\n");
+                        printf("\ntrier avec succès!!\n\n");
                         goto out;
                     case 3:
                         days_3();
@@ -75,11 +73,11 @@ int main(){
                     case 4:
                         goto out;
                     default:
-                        printf("\nchoisisser une option parmi ces 4 svp!!\n\n");
+                        printf("\nchoisissez une option parmi ces 4 svp!!\n\n");
                         goto err_tri;
                 }
             case 4:
-                printf("donner le ID de la tache a modifier:");
+                printf("donner le ID de la tâche à modifier:");
                 scanf("%d",&id);
                 var = search(id);
                 if (var >= 0){
@@ -87,22 +85,22 @@ int main(){
                 }
                 break;
             case 5:
-                printf("donner le ID de la tache a supp:");
+                printf("donner le ID de la tâche à Supprimer:");
                 scanf("%d",&id);
                 var = search(id);
                 if (var >= 0){
                     supp(var);
-                    printf("tach supprimee !\n\n");
+                    printf("\ntâche supprimée !\n\n");
                 }
                 break;
             case 6:
                 err_rech:
-                printf("1.Rechercher une tâche par son Identifiant\n2.Rechercher une tâche par son Titre\n3.Retournez au menu principale.");
-                printf("choisissez une option:");
+                printf("1.Rechercher une tâche par son Identifiant\n2.Rechercher une tâche par son Titre\n3.Retourner au menu principale.");
+                printf("\nchoisissez une option:");
                 scanf("%d", &choix);
                 switch (choix){
                     case 1:
-                        printf("donner l'ID de cet tache:");
+                        printf("donner l'ID de cette tâche:");
                         scanf("%d", &id);
                         var = search(id);
                         if (var >= 0){
@@ -110,21 +108,21 @@ int main(){
                         }
                         goto out;
                     case 2:
-                        printf("donner le titre de cet tache:");
-                        scanf("%s", empty);
+                        printf("donner le titre de cette tâche:");
+                        scanf(" %[^\n]", empty);
                         search_tit(empty);
                         goto out;
                     case 3:
                         goto out;
                     default:
-                        printf("\nchoisisser une option parmi ces 3 svp!!\n\n");
+                        printf("\nchoisissez une option parmi celles affichées svp!!\n\n");
                         goto err_rech;
                 }
             case 7:
                 err_stat:
                 printf("1.Afficher le nombre total des tâches.\n2.Afficher le nombre de tâches complètes et incomplètes.\n");
-                printf("3.Afficher le nombre de jours restants jusqu'au délai de chaque tâche\n4.Retournez au menu principale.\n");
-                printf("choisisser une option:");
+                printf("3.Afficher le nombre de jours restants jusqu'au délai de chaque tâche\n4.Retourner au menu principale.\n");
+                printf("choisissez une option:");
                 scanf("%d", &choix);
                 switch (choix){
                     case 1:
@@ -132,7 +130,6 @@ int main(){
                         goto out;
                     case 2:
                         done();
-                        undone();
                         goto out;
                     case 3:
                         days_left();
@@ -140,12 +137,13 @@ int main(){
                     case 4:
                         goto out;
                     default:
-                        printf("choisisser une option parmi ces 4 svp!!\n\n");
+                        printf("\nchoisissez une option parmi celles affichées svp!!\n\n");
                         goto err_stat;
                 }
             case 0:
                 exit(0);
             default:
+                printf("\nchoisissez une option parmi celles affichées svp!!\n\n");
                 break;
         }
     }
@@ -155,9 +153,9 @@ int main(){
 int menu_tri(){
     int choice;
     printf("voulez vous:\n");
-    printf("1.Trier les tâches par ordre alphabétique.\n2.Trier les tâches par deadline.\n");
-    printf("3.Afficher les tâches dont le deadline est dans 3 jours ou moins.\n4.Retournez au menu principale.\n");
-    printf("choisissez une option:");
+    printf("1.Triez les tâches par ordre alphabétique.\n2.Triez les tâches par deadline.\n");
+    printf("3.Affichez les tâches dont le deadline est dans 3 jours ou moins.\n4.Retournez au menu principale.\n");
+    printf("\nchoisissez une option:");
     scanf("%d",&choice);
     return choice;
 }
@@ -178,7 +176,7 @@ void menu(){
 
 void show(int a){
     printf("\nIdentifiant (ID): %d\n", task[a].ID);
-    printf("Titre de tache: %s\n", task[a].titre);
+    printf("Titre de tâche: %s\n", task[a].titre);
     printf("Description: %s\n", task[a].descri);
     printf("Deadline: %d/%d/%d\n", task[a].de_li.jour, task[a].de_li.mois, task[a].de_li.annee);
     printf("statut: %s\n\n\n", task[a].status);
@@ -186,10 +184,10 @@ void show(int a){
 
 void add(){
 
-    printf("Entrez le nom de la tache:");
-    scanf("%s", task[indice].titre);
+    printf("Entrer le nom de la tâche:");
+    scanf(" %[^\n]", task[indice].titre);
 
-    printf("donner une decription (150 charactere max):");
+    printf("donner une decription (150 caractère max):");
     scanf(" %[^\n]", task[indice].descri);
 
     printf("ajouter une deadline (JJ/MM/AA):");
@@ -199,14 +197,14 @@ void add(){
     scanf("%s", task[indice].status);
 
     task[indice].ID = G_ID;
-    printf("tache ajouté avec succès!\n(ID de ce tache: %d)\n\n\n", G_ID);
+    printf("\ntâche ajoutée avec succès!\n(ID de ce tache: %d)\n\n\n", G_ID);
     G_ID++;
     indice++;
 }
 
 void add_more(){
     int a,i,b = indice;
-    printf("combien de tache voulez vous ajoutez? :");
+    printf("combien de tâche voulez vous ajoutez? :");
     scanf("%d", &a);
     for ( i = b; i < b + a ; i++){
         add();
@@ -247,7 +245,7 @@ void swap( int i, int j){
 void tri_alpha(){
     for(int i = 0 ;i < indice ; i++){
         for(int j = i+1 ;j < indice ; j++){
-            if(strcmp(task[i].titre, task[j].titre)>0){
+            if(strcasecmp(task[i].titre, task[j].titre)>0){
                 swap(i,j);
             }
         }
@@ -257,7 +255,7 @@ void tri_alpha(){
 void tri_de_li(){
     for(int i = 0 ;i < indice ; i++){
         for(int j = i+1 ;j < indice ; j++){
-            if(temps(i) < temps(j)){
+            if(temps(i) > temps(j)){
                 swap(i,j);
             }
         }
@@ -274,35 +272,26 @@ void days_3(){
         }
     }
     if (cmpt == 0){
-        printf("aucun resultat trouvee!!\n\n");
+        printf("\naucun résultat trouvée!!\n\n");
     }
 }
 
 time_t temps(int a){
-    struct tm date[1];
+    struct tm date;
     time_t NOW;
     time_t deadline_sec;
 
-    date[0].tm_mday = task[a].de_li.jour;
-    date[0].tm_mon = task[a].de_li.mois;
-    date[0].tm_year = task[a].de_li.annee;
+    date.tm_mday = task[a].de_li.jour;
+    date.tm_mon = task[a].de_li.mois - 1;
+    date.tm_year = task[a].de_li.annee - 1900;
+    date.tm_hour = 0;
+    date.tm_min = 0;
+    date.tm_sec = 0;
     
     time(&NOW);
-    set_start_date(&date[0]);
 
-    deadline_sec = mktime(&date[0]);
+    deadline_sec = mktime(&date);
     return difftime(deadline_sec, NOW);
-}
-
-void set_start_date(struct tm date[]){
-    date[0].tm_mon -= 1;
-    date[0].tm_year -= 1900;
-    date[0].tm_hour = 0;
-    date[0].tm_min = 0;
-    date[0].tm_sec = 0;
-    date[0].tm_wday = 0;
-    date[0].tm_yday = 0;
-    date[0].tm_isdst = 0;
 }
 
 void supp(int a){
@@ -318,7 +307,7 @@ int search(int id){
             return(i);
         }
     }
-    printf("aucun resultat trouvee!!\nessayez un autre ID\n\n ");
+    printf("\naucun résultat trouvée!!\nessayez un autre ID\n\n ");
     return -1;
 }
 
@@ -327,7 +316,7 @@ void modify(int i){
     int a;
 
     printf("1.Modifier la description\n2.Modifier le statut\n3.Modifier le deadline\n4.Retourner au menu principale\n");
-    printf("choisisser une option:");
+    printf("choisissez une option:");
     scanf("%d", &a);
 
     error:
@@ -336,29 +325,29 @@ void modify(int i){
             printf("Entrer la nouvelle description : ");
             scanf(" %[^\n]", descri_modi);
             strcpy(task[i].descri, descri_modi);
-            printf("\nModification reussie!\n\n");
+            printf("\nModification réussie!\n\n");
             break;
         case 2: 
             printf("Entrer le nouveau statut : ");
             scanf(" %s", status_modi);
             strcpy(task[i].status, status_modi);
-            printf("\nModification reussie!\n\n");
+            printf("\nModification réussie!\n\n");
             break;
         case 3: 
             printf("Entrer le nouveau deadline (JJ/MM/AAAA) :");
             scanf("%d/%d/%d",  &task[i].de_li.jour, &task[i].de_li.mois, &task[i].de_li.annee);
-            printf("\nModification reussie!\n\n");
+            printf("\nModification réussie!\n\n");
             break;
         case 4:
             break;
         default:
-            printf("\nchoisisser une option parmi ces 4 svp!!\n\n");
+            printf("\nchoisissez une option parmi celles affichées svp!!\n\n");
             goto error;
     }
 }
 
 void search_tit(char tit[]){
-    int cmpt;
+    int cmpt = 0;
     for(int i = 0 ; i < indice ; i++){
         if(strcasecmp(task[i].titre, tit) == 0){
             show(i);
@@ -366,36 +355,30 @@ void search_tit(char tit[]){
         }
     }
     if (cmpt == 0){
-        printf("\naucun resultat trouvee!!\n\n");
+        printf("\naucun résultat trouvée!!\n\n");
     }
 }
 
 void done(){
-    int cmpt;
+    int task_comp = 0 ,task_uncomp = 0;
     for (int i = 0; i < indice; i++){
         if (strcasecmp(task[i].status,"done") == 0){
-            cmpt++;
+            task_comp++;
+        }else{
+            task_uncomp++;
         }
     }
-    printf("\nle nombre de tâches complètes est : %d\n",cmpt);
+    printf("\nle nombre de tâches complètes est: %d\n", task_comp);
+    printf("le nombre de tâches incomplètes est: %d\n\n", task_uncomp);
 }
 
-void undone(){
-    int cmpt;
-    for (int i = 0; i < indice; i++){
-        if ((strcasecmp(task[i].status,"doing") == 0)){
-            cmpt++;
-        }
-    }
-    printf("\nle nombre de tâches incomplètes est : %d\n",cmpt);
-}
 
 void days_left(){
     int a;
     for (int i = 0; i < indice; i++){
-        show(i);
         a = to_days(temps(i));
-        printf("le nombre de jours restants jusqu'au délai de ce tâche est :%d jour(s)\n\n", a);
+        printf("\nle nombre de jours restants jusqu'au délai de ce tâche est :%d jour(s)\n\n", a);
+        show(i);
     }
 }
 
