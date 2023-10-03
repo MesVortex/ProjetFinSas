@@ -36,13 +36,20 @@ void done();
 int search(int id);
 int menu_tri();
 int to_days(time_t a);
+int somme(int a, int b);
 
 
 int main(){
     char empty[25];
-    int choix,id,var;
+    int choix,id,var,a,b,s;
     while(1){
         out:
+        printf("donner le 1er nombre:");
+        scanf("%d",&a);
+        printf("donner le 1er nombre:");
+        scanf("%d",&b);
+        s = somme(a,b);
+        printf("la somme est:%d",s);
         menu();
         printf("choisissez une option:");
         scanf("%d", &choix);
@@ -372,7 +379,6 @@ void done(){
     printf("le nombre de tâches incomplètes est: %d\n\n", task_uncomp);
 }
 
-
 void days_left(){
     int a;
     for (int i = 0; i < indice; i++){
@@ -384,4 +390,8 @@ void days_left(){
 
 int to_days(time_t a){
     return (int)(a / (24 * 60 * 60)) + 1;
+}
+
+int somme(int a, int b){
+    return a+b;
 }
